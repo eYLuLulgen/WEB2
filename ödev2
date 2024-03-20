@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Üye Kayıt Formu</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <style>
+    body {
+      background-color: #4e7ad1; /* Arka plan rengi: mavi */
+      color: white; /* Yazı rengi: beyaz */
+      text-align: center; /* Yazıları sayfanın ortasına hizala */
+    }
+    form {
+      margin: 0 auto; /* Formu sayfanın ortasına hizala */
+      width: 300px; /* Formun genişliği */
+    }
+    label {
+      display: block; /* Etiketleri blok halinde görüntüle */
+      margin-bottom: 10px; /* Etiketler arasında boşluk bırak */
+    }
+    input[type="text"],
+    input[type="password"] {
+      width: 100%; /* Giriş kutularını formun genişliği kadar genişlet */
+      padding: 8px; /* Giriş kutularının iç boşluğu */
+      margin-bottom: 10px; /* Giriş kutuları arasında boşluk bırak */
+      box-sizing: border-box; /* Padding ve border'ı kutunun içine al */
+    }
+    button {
+      width: 100%; /* Düğmeyi formun genişliği kadar genişlet */
+      padding: 10px; /* Düğmenin iç boşluğu */
+      background-color: #1e4157; /* Düğme arka plan rengi */
+      border: none; /* Kenarlık olmadan */
+      color: white; /* Düğme yazı rengi */
+      cursor: pointer; /* Üzerine gelince el işareti göster */
+    }
+    button:hover {
+      background-color: #122935; /* Fare üzerine gelince arka plan rengi değiştir */
+    }
+  </style>
+  <script>
+    $(document).ready(function(){
+      $("#kaydetBtn").click(function(){
+        var eposta = $("#eposta").val();
+        var ad = $("#ad").val();
+        var soyad = $("#soyad").val();
+        var cepTelefonu = $("#cepTelefonu").val();
+        var sifre = $("#sifre").val();
+        var sifreTekrar = $("#sifreTekrar").val();
+
+        // Basit bir e-posta doğrulama
+        var emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+        if (!emailRegex.test(eposta)) {
+          alert("Lütfen geçerli bir e-posta adresi giriniz.");
+          return;
+        }
+
+        // Diğer alanların boş olup olmadığını kontrol etme
+        if (ad === '' || soyad === '' || cepTelefonu === '' || sifre === '' || sifreTekrar === '') {
+          alert("Lütfen tüm alanları doldurunuz.");
+          return;
+        }
+
+        // Şifrelerin eşleşip eşleşmediğini kontrol etme
+        if (sifre !== sifreTekrar) {
+          alert("Girilen şifreler birbiriyle eşleşmiyor.");
+          return;
+        }
+
+        // Eğer her şey yolundaysa, bilgileri bir alert ile göster ve sayfa2.html'e yönlendir
+        var bilgiler = "E-posta: " + eposta + "\nAd: " + ad + "\nSoyad: " + soyad + "\nCep Telefonu: " + cepTelefonu;
+        alert(bilgiler);
+        window.location.href = "sayfa2.html";
+      });
+    });
+  </script>
+</head>
+<body>
+  <h2>Üye Kayıt Formu</h2>
+  <form id="kayitForm">
+    <label for="eposta">E-posta:</label>
+    <input type="text" id="eposta" name="eposta">
+
+    <label for="ad">Ad:</label>
+    <input type="text" id="ad" name="ad">
+
+    <label for="soyad">Soyad:</label>
+    <input type="text" id="soyad" name="soyad">
+
+    <label for="cepTelefonu">Cep Telefonu:</label>
+    <input type="text" id="cepTelefonu" name="cepTelefonu">
+
+    <label for="sifre">Şifre:</label>
+    <input type="password" id="sifre" name="sifre">
+
+    <label for="sifreTekrar">Şifre Tekrar:</label>
+    <input type="password" id="sifreTekrar" name="sifreTekrar">
+
+    <button type="button" id="kaydetBtn">Kaydet</button>
+  </form>
+</body>
+</html>
